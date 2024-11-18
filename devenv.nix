@@ -1,29 +1,23 @@
 # Docs: https://devenv.sh/basics/
-{ pkgs, ... }: {
+{ pkgs, pkgs-latest, ... }: {
+
   languages = {
     # Docs: https://devenv.sh/languages/
     nix.enable = true;
   };
 
   packages = with pkgs; [
-    # Search for packages: https://search.nixos.org/packages?channel=unstable&query=cowsay
-    # (note: this searches on unstable channel, be aware your nixpkgs flake input might be on a release channel)
-    go-task
-    # taskkeeper
+    # Search for packages: https://search.nixos.org/packages?channel=unstable&query=cowsay (note: this searches on unstable channel, your nixpkgs flake input might be on a release channel)
+    hello
+    pkgs-latest.hello
   ];
-
-  scripts = {
-    # Docs: https://devenv.sh/scripts/
-  };
-
-  difftastic.enable = true; # https://devenv.sh/integrations/difftastic/
 
   pre-commit.hooks = {
     # Docs: https://devenv.sh/pre-commit-hooks/
-    # available pre-configured hooks: https://devenv.sh/reference/options/#pre-commithooks
-    # adding hooks which are not included: https://github.com/cachix/pre-commit-hooks.nix/issues/31
-
+    # list of pre-configured hooks: https://devenv.sh/reference/options/#pre-commithooks
     nil.enable = true; # nix check
     nixpkgs-fmt.enable = true; # nix formatting
   };
+
+  difftastic.enable = true; # enable semantic diffs - https://devenv.sh/integrations/difftastic/
 }
