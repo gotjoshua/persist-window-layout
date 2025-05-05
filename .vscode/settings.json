@@ -1,0 +1,24 @@
+{
+    "isort-formatter.useIntegratedTerminal": false,
+    "autoflake-extension.check": false,
+    "autoflake-extension.extension.useIntegratedTerminal": false,
+    "files.associations": {
+        "*.qlr": "xml",
+        "*.ui": "xml",
+        "*.qgs": "xml"
+    },
+    "editor.formatOnSave": false,
+    "composite-formatter.formatters": [
+        "mikoz.autoflake-extension",
+        "mikoz.isort-formatter"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "mikoz.composite-formatter"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[xml]": {
+        "editor.defaultFormatter": "DotJoshJohnson.xml"
+    }
+}

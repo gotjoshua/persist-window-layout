@@ -1,9 +1,9 @@
 [general]
-name=Minimal
-description=Minimal plugin
-about=About this minimal plugin
-version=1.0
+name=Window Layout Persistence
+description=simple qgis plugin to save and load the window size, position and panel layout 
+about=well... save the current window situation and load it again later (optionally after every app startup)
+version=0.1
 qgisMinimumVersion=3.0
-author=Martin Dobias
-email=wonder.sk@gmail.com
-repository=URL to the code repository
+author=gotjoshua
+email=me@1zm.in
+repository=https://github.com/gotjoshua/persist-window-layout
