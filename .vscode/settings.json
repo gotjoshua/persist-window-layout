@@ -20,5 +20,8 @@
     },
     "[xml]": {
         "editor.defaultFormatter": "DotJoshJohnson.xml"
+    },
+    "[shellscript]": {
+        "editor.defaultFormatter": "mkhl.shfmt"
     }
 }

@@ -11,22 +11,29 @@
 
 from PyQt5.QtWidgets import QAction, QMessageBox
 
+from .save_load import load_layout, save_layout
+
+
 def classFactory(iface):
-    return MinimalPlugin(iface)
+    return PersistWindowLayout(iface)
 
 
-class MinimalPlugin:
+class PersistWindowLayout:
     def __init__(self, iface):
         self.iface = iface
 
     def initGui(self):
-        self.action = QAction('Go!', self.iface.mainWindow())
-        self.action.triggered.connect(self.run)
-        self.iface.addToolBarIcon(self.action)
+        self.save_layout = QAction('Save Layout', self.iface.mainWindow())
+        self.save_layout.triggered.connect(save_layout)
+        self.iface.addToolBarIcon(self.save_layout)
+
+        self.load_layout = QAction('Load Layout', self.iface.mainWindow())
+        self.load_layout.triggered.connect(load_layout)
+        self.iface.addToolBarIcon(self.load_layout)
 
     def unload(self):
-        self.iface.removeToolBarIcon(self.action)
-        del self.action
+        self.iface.removeToolBarIcon(self.save_layout)
+        self.iface.removeToolBarIcon(self.load_layout)
+        del self.load_layout
+        del self.save_layout 
 
-    def run(self):
-        QMessageBox.information(None, 'Minimal plugin', 'Do something useful here')
