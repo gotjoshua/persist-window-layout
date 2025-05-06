@@ -23,5 +23,6 @@
     },
     "[shellscript]": {
         "editor.defaultFormatter": "mkhl.shfmt"
-    }
+    },
+    "editor.defaultFormatter": null,
 }

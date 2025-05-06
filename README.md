@@ -1,28 +1,18 @@
-# QGIS Minimalist Plugin Skeleton
-
-In various QGIS plugin tutorials you are told to use _Plugin Builder_ tool to create a skeleton for your plugin.
-It is surely helpful as it helps you kickstart your plugin with stuff like UI designer file, auto tests, docs, i18n, scripts and so on.
-
-This QGIS plugin is the complete opposite of a plugin built with _Plugin Builder_: it is a plugin skeleton cut down
-to the bare minimum that still results in a valid QGIS plugin. It consists of two files only: a text file with metadata and a Python file with a bit of code.
+# QGIS Window Layout Persistence
+Disclaimer: This is not a well maintained repo. 
+I will make it work for my own very specific context in nixos.
+I am happy to entertain PRs, but will likely ignore issues without PRs, as my motivation is shamelessly selfish.
 
 ## Why?
-
-For educational purposes, it is useful to understand how a very basic plugin could look like.
-
-For practical reasons, it is sometimes useful to create a single purpose plugin with the least amount of extra bells and whistles,
-so the code that actually does something is not hidden among generated boilerplate code.
+I want QGIS to span across two screens vertically and to remember the tab and map layout.
+This doesn't work (as of May 2025) natively, so together with AI llm assistents I coded up this hacky solution.
 
 ## How to use it?
 
-1. Create a new python plugin directory
-  * e.g. Linux ```~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/minimal```
-  * e.g. Windows ```C:\Users\USER\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\minimal```
-  * e.g. macOS ```~/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/minimal```
-2. Copy ```metadata.txt``` and ```__init__.py``` to that directory
-3. Start QGIS and enable the plugin (menu Plugins > Manager and Install Plugins...)
+1. Install and activate
+2. Set up the qgis window how you want it, and hit save layout
+3. Hit Load Layout to restore the situation
 
-Now you should see a "Go!" button in your "Plugins" toolbar (make sure it is enabled in menu Settings > Toolbars > Plugins).
-
-The next step is to change the metadata (e.g. plugin title and description) in ```metadata.txt``` and
-start adding your own code to ```__init__.py```. Have fun!
+# Credits 
+this plugin was created using the template from:  
+https://github.com/wonder-sk/qgis-minimal-plugin  🙏
