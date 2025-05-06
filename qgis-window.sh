@@ -5,24 +5,36 @@ WIDTH=${1:-1920}
 HEIGHT=${2:-2160}
 X_POS=${3:-0}
 Y_POS=${4:-0}
+MODE=${5:-set} # Default mode is 'set', can be 'get' for geometry
 
 # Get QGIS window ID
 json=$(gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/Windows --method org.gnome.Shell.Extensions.Windows.List)
-# Clean JSON: remove surrounding (' and '),) and ensure valid JSON
-echo "$json"
 clean_json="${json:2:-3}"
 echo "$clean_json" | jq .
-
 # Validate JSON and extract QGIS window ID
 wid=$(echo "$clean_json" | jq -c '.[] | select(.wm_class and (.wm_class | test("QGIS3"; "i"))) | .id' 2>/dev/null || echo "Error: No QGIS window found")
-# Check if wid is valid
 if [[ "$wid" == "Error: No QGIS window found" ]]; then
     echo "$wid"
     exit 1
 fi
-# Print window ID
-echo "QGIS Window ID: $wid"
-# Resize to 1920x2160
+
+if [[ "$MODE" == "get" ]]; then
+    # Get window geometry using xwininfo
+    xwininfo_output=$(xwininfo -id "$(xdotool search --class qgis | tail -n1)" 2>/dev/null)
+    if [[ $? -ne 0 ]]; then
+        echo "Error: Failed to get window geometry for $wid"
+        exit 1
+    fi
+    # Extract geometry
+    x=$(echo "$xwininfo_output" | grep "Absolute upper-left X" | awk '{print $4}')
+    y=$(echo "$xwininfo_output" | grep "Absolute upper-left Y" | awk '{print $4}')
+    width=$(echo "$xwininfo_output" | grep "Width" | awk '{print $2}')
+    height=$(($(echo "$xwininfo_output" | grep "Height" | awk '{print $2}') + y)) # add y here
+    # Output JSON
+    echo "{\"width\": $width, \"height\": $height, \"x\": $x, \"y\": $y}"
+    exit 0
+fi
+
+# Set mode: Resize and move window
 gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/Windows --method org.gnome.Shell.Extensions.Windows.Resize ${wid} $WIDTH $HEIGHT
-# Move to (0,0)
 gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/Windows --method org.gnome.Shell.Extensions.Windows.Move ${wid} $X_POS $Y_POS
