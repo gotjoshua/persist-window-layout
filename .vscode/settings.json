@@ -13,7 +13,7 @@
         "mikoz.isort-formatter"
     ],
     "[python]": {
-        "editor.defaultFormatter": "mikoz.composite-formatter"
+        "editor.defaultFormatter": "mikoz.autoflake-extension"
     },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"

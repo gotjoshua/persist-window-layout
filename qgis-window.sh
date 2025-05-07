@@ -7,9 +7,12 @@ X_POS=0        #${3:-0} #ignoring these options cuz i only want top corner align
 Y_POS=0        #${4:-0}
 MODE=${5:-set} # Default mode is 'set', can be 'get' for geometry
 
-# Get QGIS window ID
-json=$(gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/Windows --method org.gnome.Shell.Extensions.Windows.List)
+# Get QGIS window ID using gdbus
+json=$(gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/Windows --method org.gnome.Shell.Extensions.Windows.List 2>/dev/null)
+# Clean up gdbus output: strip outer ('...'), unescape quotes
 clean_json="${json:2:-3}"
+# shellcheck disable=SC2001
+clean_json=$(echo "$clean_json" | sed 's/\\"/"/g')
 # echo "$clean_json" | jq . # only for debugging otherwise breaks the return val
 # Validate JSON and extract QGIS window ID
 wid=$(echo "$clean_json" | jq -c '.[] | select(.wm_class and (.wm_class | test("QGIS3"; "i"))) | .id' 2>/dev/null || echo "Error: No QGIS window found")
