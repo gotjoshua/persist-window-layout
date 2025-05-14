@@ -8,13 +8,6 @@
         "*.qgs": "xml"
     },
     "editor.formatOnSave": false,
-    "composite-formatter.formatters": [
-        "mikoz.autoflake-extension",
-        "mikoz.isort-formatter"
-    ],
-    "[python]": {
-        "editor.defaultFormatter": "mikoz.autoflake-extension"
-    },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
@@ -25,4 +18,13 @@
         "editor.defaultFormatter": "mkhl.shfmt"
     },
     "editor.defaultFormatter": null,
+    "[markdown]": {
+        "editor.defaultFormatter": "hougesen.mdsf"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "mikoz.black-py"
+    },
+    "[nix]": {
+        "editor.defaultFormatter": "jnoortheen.nix-ide"
+    },
 }

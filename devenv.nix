@@ -8,8 +8,9 @@
 
   packages = with pkgs; [
     # Search for packages: https://search.nixos.org/packages?channel=unstable&query=cowsay (note: this searches on unstable channel, your nixpkgs flake input might be on a release channel)
-    hello
-    pkgs-latest.hello
+    python3
+    black
+    # python313Packages.black
   ];
 
   pre-commit.hooks = {
