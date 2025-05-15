@@ -304,10 +304,12 @@ def load_layout():
         settings = load_config_file()
         script_path = get_plugin_script_path()
 
+        restore_window(main_window, settings.get("window", {}), script_path)
+
         QTimer.singleShot(
             100,
-            lambda: restore_window(
-                main_window, settings.get("window", {}), script_path
+            lambda: main_window.resize(
+                settings["window"]["size"][0], settings["window"]["size"][1]
             ),
         )
         QTimer.singleShot(
@@ -319,13 +321,6 @@ def load_layout():
                 main_window, settings.get("tab_groups", []), settings.get("panels", {})
             ),
         )
-
-        QTimer.singleShot(
-            100,
-            lambda: main_window.resize(
-                settings["window"]["size"][0], settings["window"]["size"][1]
-            ),
-        )
         QApplication.processEvents()
 
         QTimer.singleShot(
@@ -335,6 +330,12 @@ def load_layout():
             ),
         )
 
+        QTimer.singleShot(
+            1000,
+            lambda: main_window.resize(
+                settings["window"]["size"][0], settings["window"]["size"][1]
+            ),
+        )
         # restore_active_layout(main_window, settings.get("active_layout"))
     except Exception as e:
         iface.messageBar().pushMessage(

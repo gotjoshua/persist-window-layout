@@ -32,7 +32,7 @@ if [[ "$MODE" == "get" ]]; then
     x=$(echo "$xwininfo_output" | grep "Absolute upper-left X" | awk '{print $4}')
     y=$(($(echo "$xwininfo_output" | grep "Absolute upper-left Y" | awk '{print $4}') - 37))
     width=$(echo "$xwininfo_output" | grep "Width" | awk '{print $2}')
-    height=$(($(echo "$xwininfo_output" | grep "Height" | awk '{print $2}') + 37)) # add 37 for the title bar here
+    height=$(($(echo "$xwininfo_output" | grep "Height" | awk '{print $2}'))) # add 37 for the title bar (needed in xorg)
     # Output JSON
     echo "{\"width\": $width, \"height\": $height, \"x\": $x, \"y\": $y}"
     exit 0
